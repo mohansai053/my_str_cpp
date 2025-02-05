@@ -152,6 +152,12 @@ class mystring
         }
     }
 
+    //At function
+    char& at(size_f pos)
+    {
+        return str[pos];
+    }
+
     //Operator Overloading
     //+ used for concatination
     mystring operator +(const mystring& sec_src)
@@ -161,6 +167,20 @@ class mystring
         cout<<"'+' Operator overloaded"<<endl;
         temp = Ostrcat(temp,this->str,sec_src.str);
         return temp;
+    }
+
+    mystring& operator =(const mystring& obj)
+    {
+        if(this == &obj)
+        {
+            return *this;
+        }
+        delete[] this->str;
+
+        str = new char[Ostrlen(obj.str)+1];
+        cout<<"Assignment Operator overloaded"<<endl;
+        Ostrcpy(obj.str,this->str);
+        return *this;
     }
 
     mystring& operator =(const mystring& obj)
@@ -214,17 +234,6 @@ class mystring
         *des = '\0';   
     }
 
-    //     //Copy the src into destination for desired character count
-    // void Ostrcpy(const char *src,char *des,size_f n)
-    // {
-    //     while(*src != '\0' && n>0)
-    //     {
-    //         *des++ = *src++;
-    //         n--;
-    //     }
-    //     *des = '\0';   
-    // }
-
     /*String Copy of number of characters*/
     void Ostrncpy(const char *src,char *des,int n)
     {
@@ -251,11 +260,6 @@ class mystring
     {
         Ostrcpy(src,des+Ostrlen(des),n); 
     }
-
-    // void Ostrcat(char* des,const char* src,size_f n)
-    // {
-    //     Ostrcpy(src,des+Ostrlen(des),n); 
-    // }
 
     void Ostrcat(const char src,char *des,size_f n=0)
     {
